@@ -8,7 +8,7 @@ bp = Blueprint("quiz", __name__)
 @bp.route("/decks/<int:deck_id>/quiz")
 def start_quiz(deck_id):
     deck = models.get_deck(deck_id)
-    cards = models.get_cards()
+    cards = models.get_cards(deck_id)
 
     if request.headers.get("Accept") == "application/json":
         return jsonify({"cards": cards})

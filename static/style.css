@@ -1,5 +1,181 @@
+:root {
+  --bg: #f6f5fb;
+  --surface: #ffffff;
+  --text: #201f2b;
+  --muted: #6b6878;
+  --border: #e4e1ef;
+  --primary: #6c5ce7;
+  --primary-dark: #5a45d6;
+  --correct: #1f9d55;
+  --correct-bg: #e6f7ec;
+  --wrong: #d64545;
+  --wrong-bg: #fdeaea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   max-width: 640px;
-  margin: 2rem auto;
+  margin: 2.5rem auto;
+  padding: 0 1.25rem;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+.brand {
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.deck-list, .card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.deck-list li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.deck-list li:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(108, 92, 231, 0.12);
+}
+
+.deck-list a {
+  display: block;
+  padding: 0.9rem 1.1rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.card-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.card-list li:last-child {
+  border-bottom: none;
+}
+
+form {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+input[type="text"], select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+  background: var(--surface);
+  color: var(--text);
+}
+
+input[type="text"]:focus, select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+button, .quiz-link {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.1s ease;
+}
+
+button:hover, .quiz-link:hover {
+  background: var(--primary-dark);
+}
+
+.quiz-link {
+  margin-bottom: 1.5rem;
+}
+
+.quiz-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.quiz-card.answered-correct {
+  border-color: var(--correct);
+  background: var(--correct-bg);
+}
+
+.quiz-card.answered-wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-bg);
+}
+
+.quiz-card .question {
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-card label {
+  display: block;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.quiz-card label:hover {
+  background: rgba(108, 92, 231, 0.08);
+}
+
+.feedback {
+  font-weight: 700;
+  margin-left: 0.6rem;
+}
+
+.feedback.is-correct {
+  color: var(--correct);
+}
+
+.feedback.is-wrong {
+  color: var(--wrong);
 }
