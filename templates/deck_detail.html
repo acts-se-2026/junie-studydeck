@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ deck.name }}</h1>
+  <a href="{{ url_for('quiz.start_quiz', deck_id=deck.id) }}" class="quiz-link">▶ Start quiz</a>
+
+  <h2>Cards</h2>
+  <ul class="card-list">
+    {% for card in cards %}
+      <li>{{ card.question }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Add a card</h2>
+  <form method="post" action="{{ url_for('cards.add_card', deck_id=deck.id) }}">
+    <input type="text" name="question" placeholder="Question" required>
+    <input type="text" name="option_a" placeholder="Option A" required>
+    <input type="text" name="option_b" placeholder="Option B" required>
+    <input type="text" name="option_c" placeholder="Option C" required>
+    <select name="correct_index">
+      <option value="0">A is correct</option>
+      <option value="1">B is correct</option>
+      <option value="2">C is correct</option>
+    </select>
+    <button type="submit">Add card</button>
+  </form>
+{% endblock %}

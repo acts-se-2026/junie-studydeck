@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ deck.name }} quiz</h1>
+
+  {% for card in cards %}
+    <div class="quiz-card" data-card-id="{{ card.id }}">
+      <p class="question">{{ card.question }}</p>
+      {% for option in card.options %}
+        <label>
+          <input type="radio" name="answer-{{ card.id }}" value="{{ loop.index0 }}">
+          {{ option }}
+        </label>
+      {% endfor %}
+      <button type="button" class="submit-answer" data-card-id="{{ card.id }}">Submit</button>
+      <span class="feedback"></span>
+    </div>
+  {% endfor %}
+
+  <script>
+    document.querySelectorAll(".submit-answer").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var cardId = button.dataset.cardId;
+        var card = button.closest(".quiz-card");
+        var chosen = card.querySelector('input[name="answer-' + cardId + '"]:checked');
+        if (!chosen) return;
+
+        var form = new URLSearchParams();
+        form.set("card_id", cardId);
+        form.set("chosen_index", chosen.value);
+
+        fetch("{{ url_for('quiz.answer', deck_id=deck.id) }}", {
+          method: "POST",
+          headers: {"Content-Type": "application/x-www-form-urlencoded"},
+          body: form,
+        })
+          .then(function (resp) { return resp.json(); })
+          .then(function (data) {
+            var feedback = card.querySelector(".feedback");
+            feedback.textContent = data.correct ? "✅ Correct!" : "❌ Wrong!";
+            feedback.classList.remove("is-correct", "is-wrong");
+            feedback.classList.add(data.correct ? "is-correct" : "is-wrong");
+            card.classList.toggle("answered-correct", data.correct);
+            card.classList.toggle("answered-wrong", !data.correct);
+          });
+      });
+    });
+  </script>
+{% endblock %}

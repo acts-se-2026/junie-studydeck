@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Your Decks</h1>
+  <ul class="deck-list">
+    {% for deck in decks %}
+      <li>
+        <a href="{{ url_for('decks.deck_detail', deck_id=deck.id) }}">{{ deck.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>New deck</h2>
+  <form method="post" action="{{ url_for('decks.create_deck') }}">
+    <input type="text" name="name" placeholder="Deck name" required>
+    <button type="submit">Create</button>
+  </form>
+{% endblock %}
